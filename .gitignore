@@ -1,0 +1,24 @@
+# Session-internal planning material — kept on disk locally, excluded
+# from the public repo until each item has been independently verified.
+NEXT-SESSION-PROMPT.md
+BLOG.md
+TERMUX-INSTALL-NOTES.md
+UPSTREAM-CONTRIBUTION-TODO.md
+CLAUDE.md
+hermes-export.tar.gz
+android-hermes-replicant-onboarding-export/
+
+# Local Claude / agent state
+.claude/
+.omc/
+.replicant/
+memory/
+
+# OS / editor cruft
+.DS_Store
+*.swp
+*.swo
+
+# Logs
+*.log
+blog-assets/
