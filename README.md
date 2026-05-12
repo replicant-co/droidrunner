@@ -7,7 +7,19 @@ Friction-free installer for [Hermes Agent](https://github.com/NousResearch/herme
 Two Termux apps, both from [F-Droid](https://f-droid.org/) (not Play Store — they need to share the same signing key). Disable Google Play Protect first; modern Android blocks Termux install otherwise.
 
 - [Termux](https://f-droid.org/packages/com.termux/) — the terminal that runs Hermes.
-- [Termux:Float](https://f-droid.org/packages/com.termux.window/) — a floating terminal that hovers over other apps. Used for the Wireless debugging pair step in [Wire Replicant MCP](#wire-replicant-mcp) below. Grant it "Display over other apps" under Android Settings → Apps → Special app access → Display over other apps → Termux:Float.
+- [Termux:Float](https://f-droid.org/packages/com.termux.window/) — a floating terminal that hovers over other apps. Used for the Wireless debugging pair step in [Wire Replicant MCP](#wire-replicant-mcp) below.
+
+Termux:Float needs the "Display over other apps" permission. On Android 13+ that toggle is greyed out for sideloaded apps until you first unlock **restricted settings** — see Google's [Allow restricted settings](https://support.google.com/android/answer/12623953?p=restricted_settings) explainer. The full sequence:
+
+1. Open Termux:Float once from the launcher so Android registers it. Android won't list it under "Display over other apps" until then.
+2. **Unlock restricted settings.** Settings → Apps → All apps → **Termux:Float** → tap the **⋮** menu (top right of the app info page) → **Allow restricted settings** → confirm the warning. Without this, the toggle in step 3 stays greyed out.
+3. **Grant the permission.** Still on Termux:Float's app info page → **Permissions** → **Display over other apps** → toggle **Allow display over other apps** on. (Same toggle is reachable from Settings → Apps → Special app access → Display over other apps → Termux:Float.)
+4. **Force stop** Termux:Float on the same app info page, then reopen it from the launcher. It only actually floats after the permission is live and the process restarts.
+
+Troubleshooting:
+
+- "Display over other apps" stays greyed out → you skipped step 2.
+- Termux:Float opens full-screen instead of floating → the permission isn't applied to the running process yet, repeat step 4.
 
 ## Install
 
