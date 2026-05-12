@@ -2,9 +2,16 @@
 
 Friction-free installer for [Hermes Agent](https://github.com/NousResearch/hermes-agent) on Android (Termux, aarch64).
 
+## Termux
+
+Two Termux apps, both from [F-Droid](https://f-droid.org/) (not Play Store — they need to share the same signing key). Disable Google Play Protect first; modern Android blocks Termux install otherwise.
+
+- [Termux](https://f-droid.org/packages/com.termux/) — the terminal that runs Hermes.
+- [Termux:Float](https://f-droid.org/packages/com.termux.window/) — a floating terminal that hovers over other apps. Used for the Wireless debugging pair step in [Wire Replicant MCP](#wire-replicant-mcp) below. Grant it "Display over other apps" under Android Settings → Apps → Special app access → Display over other apps → Termux:Float.
+
 ## Install
 
-Inside [Termux](https://termux.dev/) (install the [F-Droid](https://f-droid.org/packages/com.termux/) build, not Play Store; disable Google Play Protect before installing Termux if you haven't already):
+In Termux:
 
 ```sh
 curl -fsSL -O https://raw.githubusercontent.com/replicant-co/droidrunner/main/installer/install-hermes-termux.sh
@@ -24,7 +31,7 @@ bash setup-replicant-adb.sh
 
 The script installs `replicant-mcp` (with `--ignore-scripts` — sharp's native build fails on Android/arm64 and Replicant gets patched to use an ImageMagick shim instead), patches Replicant's dist for Termux, registers a `replicant` MCP server with Hermes, then walks you through Android's Wireless debugging pairing on the same phone and ends on a persistent `127.0.0.1:5555` ADB transport. Restart `hermes chat` after it finishes so the new MCP tools load.
 
-Enable [Developer options → Wireless debugging](https://developer.android.com/tools/adb#connect-to-a-device-over-wi-fi) on the phone before running. For the pairing step, also install [Termux:Float](https://f-droid.org/packages/com.termux.window/) from F-Droid (same signing key as Termux) and grant it "Display over other apps" under Android Settings → Apps → Special app access → Display over other apps → Termux:Float. Its floating terminal hovers over Settings, so the "Pair device with pairing code" popup (and the underlying pairing socket) stays alive while you type — Android dismisses both when Settings is fully backgrounded.
+Enable [Developer options → Wireless debugging](https://developer.android.com/tools/adb#connect-to-a-device-over-wi-fi) on the phone before running. Android dismisses the "Pair device with pairing code" popup (and the underlying pairing socket) when Settings is fully backgrounded, so the pair step needs [Termux:Float](#termux) — its floating terminal hovers over Settings without backgrounding it.
 
 Run the install / patches / MCP-registration portion of `setup-replicant-adb.sh` in regular Termux. When the script reaches the pair prompts, press Enter at both to skip them, then open Settings → Wireless debugging → "Pair device with pairing code" and finish from a Termux:Float window:
 
