@@ -1,6 +1,6 @@
 # droidrunner
 
-Friction-free installer for [Hermes Agent](https://github.com/NousResearch/hermes-agent) on Android (Termux, aarch64).
+Friction-free installer for [Hermes Agent](https://github.com/NousResearch/hermes-agent) + [Replicant MCP](https://github.com/thecombatwombat/replicant-mcp) on Android (Termux, aarch64).
 
 ## Termux
 
@@ -34,7 +34,7 @@ About 30 minutes cold. When it finishes, `hermes` is on your `$PATH`. Run `herme
 
 ## Wire Replicant MCP
 
-Hermes on a phone needs to drive the phone to be useful. Wiring up [Replicant MCP](https://www.npmjs.com/package/replicant-mcp) lets Hermes control the same device it's running on, over local ADB.
+Hermes on a phone needs to drive the phone to be useful. Wiring up [Replicant MCP](https://github.com/thecombatwombat/replicant-mcp) lets Hermes control the same device it's running on, over local ADB.
 
 Enable [Developer options → Wireless debugging](https://developer.android.com/tools/adb#connect-to-a-device-over-wi-fi) on the phone first, then in regular Termux:
 
