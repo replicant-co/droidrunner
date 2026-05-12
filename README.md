@@ -60,7 +60,7 @@ adb connect 127.0.0.1:5555
 
 Two things to know before you leave it running.
 
-- **Reboot breaks ADB.** The `adb connect 127.0.0.1:5555` transport rides over localhost, so toggling Wi-Fi off (or jumping networks) won't touch it. A phone reboot will: `tcpip` mode resets to USB. Re-pair through Wireless debugging after every restart.
+- **Wi-Fi changes don't break ADB.** `adb connect 127.0.0.1:5555` rides over localhost, so going off Wi-Fi or switching networks won't touch it. The link stays alive as long as the phone is on. Reboots break it, though: `tcpip` mode resets to USB. Re-pair through Wireless debugging after every restart.
 - **Android will kill Termux.** Android reaps background processes aggressively, and when Termux dies, `hermes chat` and any running agent die with it. Long-press the Termux notification → **Acquire Wakelock**, then exempt Termux from battery optimisation at Settings → Apps → Termux → Battery → **Unrestricted**.
 
 ## License
