@@ -24,7 +24,18 @@ bash setup-replicant-adb.sh
 
 The script installs `replicant-mcp` (with `--ignore-scripts` — sharp's native build fails on Android/arm64 and Replicant gets patched to use an ImageMagick shim instead), patches Replicant's dist for Termux, registers a `replicant` MCP server with Hermes, then walks you through Android's Wireless debugging pairing on the same phone and ends on a persistent `127.0.0.1:5555` ADB transport. Restart `hermes chat` after it finishes so the new MCP tools load.
 
-Enable [Developer options → Wireless debugging](https://developer.android.com/tools/adb#connect-to-a-device-over-wi-fi) on the phone before running. **Use Android split-screen between Settings and Termux** while the script is running — Android dismisses the "Pair device with pairing code" popup (and the underlying pairing socket) when Settings is fully backgrounded, so the pair step will fail without it.
+Enable [Developer options → Wireless debugging](https://developer.android.com/tools/adb#connect-to-a-device-over-wi-fi) on the phone before running. For the pairing step, also install [Termux:Float](https://f-droid.org/packages/com.termux.window/) from F-Droid (same signing key as Termux) and grant it "Display over other apps" under Android Settings → Apps → Special app access → Display over other apps → Termux:Float. Its floating terminal hovers over Settings, so the "Pair device with pairing code" popup (and the underlying pairing socket) stays alive while you type — Android dismisses both when Settings is fully backgrounded.
+
+Run the install / patches / MCP-registration portion of `setup-replicant-adb.sh` in regular Termux. When the script reaches the pair prompts, press Enter at both to skip them, then open Settings → Wireless debugging → "Pair device with pairing code" and finish from a Termux:Float window:
+
+```sh
+adb pair "127.0.0.1:<PAIRING_PORT>" "<PAIRING_CODE>"
+adb connect "127.0.0.1:<CONNECT_PORT>"
+adb -s "127.0.0.1:<CONNECT_PORT>" tcpip 5555
+adb connect 127.0.0.1:5555
+```
+
+`PAIRING_PORT` and `PAIRING_CODE` come from the popup; `CONNECT_PORT` is the port shown at "IP address & port" on the main Wireless debugging screen.
 
 ## License
 
